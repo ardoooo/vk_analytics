@@ -36,6 +36,9 @@ class TableOfPosts:
 
     def __getattr__(self, attr_name):
         if attr_name[-7:] == 'average':
-            return self.common_value[attr_name[:-8]] / self.count_posts
+            if self.count_posts == 0:
+                return 0
+            else:
+                return self.common_value[attr_name[:-8]] / self.count_posts
         if attr_name[-3:] == 'max':
             return self.max_value[attr_name[:-4]]

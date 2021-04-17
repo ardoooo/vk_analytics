@@ -47,13 +47,7 @@ class StartFrame(ttk.Frame):
         self.description_frame = ttk.Frame(self)
         label1 = ttk.Label(self.description_frame, text='Справка', font='18')
         text = Text(self.description_frame, wrap=WORD)
-        text.insert(0.0, 'Эта программа позволяет вам получить статистику по лайкам, репостам, \n'
-                              'комментариям ПУБЛИЧНЫХ аккаунтов или сообществ в ВКонтакте. \n'
-                              'Необходимо выбрать промежуток времени, за который вы хотите получить статистику'
-                              '\nДату нужно вводить в формате ДД.ММ.ГГ'
-                              '\nС помощью кнопок "+" и "-" можно добавлять(удалять) поля для ввода ссылок'
-                              '\nВ поля для ссылок нужно вводить только сам цифровой id или короткое название'
-                              '\nНапример, из https://vk.com/drfpmi в поле нужно вставить только drfpmi')
+        text.insert(0.0, config.info_help)
         text.config(state=DISABLED)
         self.description_frame.pack(side='right', expand=1, fill=BOTH)
         label1.pack(side='top')
@@ -105,6 +99,26 @@ class CommonFrame(ttk.Frame):
         button_next.pack(side='right')
         nav_frame.pack(side='bottom', fill=X)
 
+    # функция, заполняющая вкладки статистикой
+    def filling_frame(self, function_average, function_max):
+        i = 0
+        for name in config.domains:
+            average_label = Label(self.left_frame)
+            count = getattr(config.walls[i], function_average)
+            average_label.configure(text=str(count), font='15')
+            average_label.pack()
+
+            max_label = Label(self.right_frame)
+            count = getattr(config.walls[i], function_max)
+            max_label.configure(text=str(count), font='15')
+            max_label.pack()
+
+            name_label = Label(self.mid_frame)
+            name_label.configure(text=name.get(), font='15')
+            name_label.pack()
+
+            i += 1
+
 
 # функция для навигации между вкладками
 def go_frame(step, notebook):
@@ -119,28 +133,7 @@ def start_analytics():
     config.walls = [TableOfPosts(name.get(), config.start_date.get(), config.end_date.get()) for name in config.domains]
     i = 0
     for param in TableOfPosts.parameters:
-        filling_frame(config.common_frames[i], param + '_average', param + '_max')
+        config.common_frames[i].filling_frame(param + '_average', param + '_max')
         i += 1
 
     config.notebook.select(1)
-
-
-# функция, заполняющая вкладки статистикой
-def filling_frame(common_frame, function_average, function_max):
-    i = 0
-    for name in config.domains:
-        average_label = Label(common_frame.left_frame)
-        count = getattr(config.walls[i], function_average)
-        average_label.configure(text=str(count), font='15')
-        average_label.pack()
-
-        max_label = Label(common_frame.right_frame)
-        count = getattr(config.walls[i], function_max)
-        max_label.configure(text=str(count), font='15')
-        max_label.pack()
-
-        name_label = Label(common_frame.mid_frame)
-        name_label.configure(text=name.get(), font='15')
-        name_label.pack()
-
-        i += 1
