@@ -5,6 +5,9 @@ import config
 
 
 class StartFrame(ttk.Frame):
+    """класс, реализующий стартовое окно
+    функции:
+    add_entry(self) and delete_entry(self) - функции для добавления(удаления) полей ввода ссылок"""
 
     def __init__(self):
         ttk.Frame.__init__(self)
@@ -68,6 +71,9 @@ class StartFrame(ttk.Frame):
 
 
 class CommonFrame(ttk.Frame):
+    """Класс, реализующий вкладку с аналитикой
+    Методы:
+    filling_frame(self, function_average, function_max)"""
     def __init__(self, name, notebook):
         ttk.Frame.__init__(self)
 
@@ -101,6 +107,8 @@ class CommonFrame(ttk.Frame):
 
     # функция, заполняющая вкладки статистикой
     def filling_frame(self, function_average, function_max):
+        """filling_frame(self, function_average, function_max)
+        заполняет common_frame статистикой, полученной из function_average и function_max"""
         i = 0
         for name in config.domains:
             average_label = Label(self.left_frame)
@@ -122,6 +130,8 @@ class CommonFrame(ttk.Frame):
 
 # функция для навигации между вкладками
 def go_frame(step, notebook):
+    """go_frame(step, notebook)
+    функция для перехода на величину step от текущей вкладке в notebook"""
     number = notebook.index(notebook.select())
     if number + step <= len(config.names):
         notebook.select(number + step)
@@ -129,6 +139,7 @@ def go_frame(step, notebook):
 
 # основная функция, срабатывает при нажатии кнопки "начать"
 def start_analytics():
+    """функция, запускающая процесс аналитики и вывода её на экран"""
     config.domains = list(filter(lambda domain: domain.get() != '', config.domains))
     config.walls = [TableOfPosts(name.get(), config.start_date.get(), config.end_date.get()) for name in config.domains]
     i = 0

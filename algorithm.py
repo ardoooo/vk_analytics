@@ -2,11 +2,10 @@ import vk_api
 from datetime import datetime
 from config import token
 
-'''класс TableOfPosts, хранящий все посты по стены конкретного сообщества,
-стастику о сообществе мы получаем с помощью методо класса'''
-
 
 class TableOfPosts:
+    """класс TableOfPosts, хранящий все посты по стены конкретного сообщества,
+    стастику о сообществе мы получаем с помощью методов класса"""
 
     parameters = ['likes', 'reposts', 'comments', 'views']
 
