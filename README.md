@@ -5,5 +5,5 @@
 На данный момент программа может некорректно работать(или не работать совсем) с сообществами, где много записей(больше 2500)
 
 Для начала работы с программой необходимо клонировать репозиторий к себе и запустить в терминале команду:
-sudo apt update && sudo apt install python3-tk & pip install -r requirements.txt && python3 main.py
+sudo apt update && sudo apt install python3-tk && pip install -r requirements.txt && python3 main.py
 
