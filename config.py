@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
-token = "9f8bfbdd4759757d4c366a7e5a37b7daba1b436861f96587c2caa082b84221ed9a60c1afc5843c189f0d2"
+token = ""
 
 root = Tk()
 root.title('VK analytics')
